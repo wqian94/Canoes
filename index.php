@@ -26,7 +26,8 @@
 		<script type="text/javascript">
 		/*<!--*/
 			function dgID(id){return document.getElementById(id);}
-			
+			<?php
+			<<<JAVASCRIPT
 			function generateRGB(){
 				var arr=[];
 				for(var i=0;i<3;i++){
@@ -68,12 +69,25 @@
 			,0);
 			
 		/*-->*/
+JAVASCRIPT;
+		?>
 		</script>
 	</head>
 	<body>
 		<div id="toolbar">
 		</div>
 		<div id="panel">
+<?php
+for($i=0;$i<1000;$i++){
+	$color=array();
+	for($j=0;$j<3;$j++){
+		$color[]=sprintf("%s",mt_rand(0,255));
+	}
+	echo <<<HTML
+<div style="display:inline-block;border:0;margin:0;padding:0;width:10px;height:10px;background:rgb($color[0],$color[1],$color[2]);"></div>
+HTML;
+}
+?>
 		</div>
 	</body>
 </html>
