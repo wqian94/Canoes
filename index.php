@@ -26,8 +26,6 @@
 		<script type="text/javascript">
 		/*<!--*/
 			function dgID(id){return document.getElementById(id);}
-			<?php
-			<<<JAVASCRIPT
 			function generateRGB(){
 				var arr=[];
 				for(var i=0;i<3;i++){
@@ -39,10 +37,11 @@
 			function generatePixel(){
 				var div=document.createElement("div");
 				var colors=generateRGB();
-				div.style.display="inline-block";
+				div.style.display="block";
 				div.style.backgroundColor="rgb(".concat(colors[0].toString(),",",colors[1].toString(),",",colors[2].toString(),")");
 				div.style.width="10px";
 				div.style.height="10px";
+				div.style.position="absolute";
 				/*div.style.minWidth="10px";
 				div.style.minHeight="10px";
 				div.style.maxWidth="10px";
@@ -62,32 +61,24 @@
 				var toolbar=dgID("toolbar");
 				var panel=dgID("panel");
 				panel.style.height=(window.innerHeight-parseInt(toolbar.clientHeight)).toString()+"px";
-				for(var i=0;i<1000;i++){
-					panel.appendChild(generatePixel());
+				for(var y=0;y<panel.clientHeight;y+=10){
+					for(var x=0;x<panel.clientWidth;x+=10){
+						var pixel=generatePixel();
+						pixel.style.left=x.toString()+"px";
+						pixel.style.top=y.toString()+"px";
+						panel.appendChild(pixel);
+					}
 				}
 			}
 			,0);
 			
 		/*-->*/
-JAVASCRIPT;
-		?>
 		</script>
 	</head>
 	<body>
 		<div id="toolbar">
 		</div>
-		<div id="panel">
-<?php
-for($i=0;$i<1000;$i++){
-	$color=array();
-	for($j=0;$j<3;$j++){
-		$color[]=sprintf("%s",mt_rand(0,255));
-	}
-	echo <<<HTML
-<div style="display:inline-block;border:0;margin:0;padding:0;width:10px;height:10px;background:rgb($color[0],$color[1],$color[2]);"></div>
-HTML;
-}
-?>
+		<div id="panel" style="position:relative;">
 		</div>
 	</body>
 </html>
