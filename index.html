@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Coloring!</title>
+		<style type="text/css">
+			html,body,div{
+				border:0;
+				margin:0;
+				padding:0;
+			}
+			
+			body{
+				background:none;
+			}
+			
+			#toolbar{
+				height:24pt;
+				border-bottom:0px solid black;
+			}
+			
+			#panel{
+				overflow:hidden;
+			}
+		</style>
+		<script type="text/javascript">
+		/*<!--*/
+			function dgID(id){return document.getElementById(id);}
+			
+			function generateRGB(){
+				var arr=[];
+				for(var i=0;i<3;i++){
+					arr.push(Math.floor(Math.random()*256));
+				}
+				return arr;
+			}
+			
+			function generatePixel(){
+				var div=document.createElement("div");
+				var colors=generateRGB();
+				div.style.display="inline-block";
+				div.style.backgroundColor="rgb(".concat(colors[0].toString(),",",colors[1].toString(),",",colors[2].toString(),")");
+				div.style.maxWidth="10px";
+				div.style.maxHeight="10px";
+				div.style.border="1px solid black";
+				div.style.margin="0";
+				div.style.padding="0";
+				div.innerHTML="<div style=\"display:inline-block;width:10px;height:10px;\"></div>";
+				/*var inner=div.cloneNode(true);
+				inner.style.display="inline-block";
+				div.appendChild(inner);
+				div.style.maxWidth=div.style.width;
+				div.style.maxHeight=div.style.height;*/
+				return div;
+			}
+			
+			setTimeout(function(){
+				var toolbar=dgID("toolbar");
+				var panel=dgID("panel");
+				panel.style.height=(window.innerHeight-parseInt(toolbar.clientHeight)).toString()+"px";
+				for(var i=0;i<1000;i++){
+					panel.appendChild(generatePixel());
+				}
+			}
+			,0);
+			
+		/*-->*/
+		</script>
+	</head>
+	<body>
+		<div id="toolbar">
+		</div>
+		<div id="panel">
+		</div>
+	</body>
+</html>
