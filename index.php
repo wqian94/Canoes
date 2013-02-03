@@ -36,9 +36,7 @@
 			
 			function generatePixel(){
 				var div=document.createElement("div");
-				var colors=generateRGB();
 				div.style.display="block";
-				div.style.backgroundColor="rgb(".concat(colors[0].toString(),",",colors[1].toString(),",",colors[2].toString(),")");
 				div.style.width="10px";
 				div.style.height="10px";
 				div.style.position="absolute";
@@ -57,13 +55,16 @@
 				return div;
 			}
 			
+			var basepixel=generatePixel();
 			setTimeout(function(){
 				var toolbar=dgID("toolbar");
 				var panel=dgID("panel");
 				panel.style.height=(window.innerHeight-parseInt(toolbar.clientHeight)).toString()+"px";
 				for(var y=0;y<panel.clientHeight;y+=10){
 					for(var x=0;x<panel.clientWidth;x+=10){
-						var pixel=generatePixel();
+						var colors=generateRGB();
+						var pixel=basepixel.cloneNode(true);
+						pixel.style.backgroundColor="rgb(".concat(colors[0].toString(),",",colors[1].toString(),",",colors[2].toString(),")");
 						pixel.style.left=x.toString()+"px";
 						pixel.style.top=y.toString()+"px";
 						panel.appendChild(pixel);
